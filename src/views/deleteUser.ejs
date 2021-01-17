@@ -1,0 +1,31 @@
+<%- layout('layouts/main.ejs')%>
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card mt-4 text-center">
+            <div class="card-header">
+                <h4>ELIMINAR UN USUARIO</h4>
+                <h6></h6>
+            </div>
+            <div class="card-body">
+                <form action="/changeMyPassword" method="POST">
+                    <h6>Usuario:</h6>
+                    <div class="form-group">
+                        <input disabled="disabled" value="<%= user.dni %>" class="form-control" type="number" name="dni" placeholder="DNI" required>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="password" name="actualPassword" placeholder="Contraseña actual" required>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control"type="password" name="newPassword" placeholder="Nueva contraseña" required> 
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control"type="password" name="newPasswordCheck" placeholder="Repita la nueva contraseña" required> 
+                    </div>
+                    
+                    <button class="btn btn-primary btn-block" type="submit">Cambiar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
