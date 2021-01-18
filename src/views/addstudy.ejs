@@ -1,0 +1,58 @@
+<%- layout('layouts/main.ejs')%>
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card mt-4 text-center">
+            <div class="card-header">
+                <h4>CARGAR ESTUDIO</h4>
+            </div>
+            <div class="card-body">
+                <form action="/addstudy" method="POST">
+                    
+                    <%if (user.role == "master"){%>
+                        <h6>Médico</h6>
+                        <div class="form-group">
+                            <input class="form-control" type="number" name="doctor_dni" placeholder="DNI del médico" required>
+                        </div> 
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="hospital" placeholder="Centro de salud" required>
+                        </div> 
+                        <%}                  
+                    %>
+                    
+                    <h6>Datos del paciente</h6>                   
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="patient_dni" placeholder="DNI del paciente" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="patient_name" placeholder="Nombre del paciente" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="patient_lastName" placeholder="Apellido del paciente" required>
+                    </div>
+                    <h6>Resultado</h6>
+                    <div class="form-group row justify-content-center">
+                        <div class="radio">
+                            <label class="mr-1">
+                              <input type="radio" name="result" id="opciones_1" value="positivo" >
+                              POSITIVO
+                            </label>
+                          </div>
+                          <div class="radio">
+                            <label class="ml-5">
+                              <input type="radio" name="result" id="opciones_2" value="negativo" checked>
+                              NEGATIVO
+                            </label>
+                          </div>
+                    </div>
+                    <h6>Fecha del estudio</h6>                
+                    <div class="form-group">
+                        <input type="date" class="form-control" name="date" placeholder="Apellido del paciente" required>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-block" type="submit">Subir</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

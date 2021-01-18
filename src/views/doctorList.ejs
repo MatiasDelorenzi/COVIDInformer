@@ -4,20 +4,80 @@
     <h1>Listado de médicos</h1>
 
     <div class="container col ml-auto">
-            <div class="item-center">
-                <div class="card col-sm-9">
+            <div class="ml-auto">
+                <div class="card ml-auto mr-auto col-sm-13 mb-1">
                     <div class="row no-gutters">
-                        <div class="col-sm-4"">
-                            <h2><%= doctorList[0].dni %></h1>
-                        </div>
-                        <div class="col-sm-4">
-                            <h2><%= doctorList[0].name %></h1>
-                        </div>
-                        <div class="col-sm-4">
-                            <h2> <%= doctorList[0].lastName %></h1>
-                        </div>
+                        <%if (user.role != "master") {%>
+                            <div class="col-sm-4">
+                                <h4>DNI</h4>
+                            </div>
+                            <div class="col-sm-4">
+                                <h4>NOMBRE</h4>
+                            </div>
+                            <div class="col-sm-4">
+                                <h4> APELLIDO</h4>
+                            </div>
+                        <%}%>
+                        
+                        <%if (user.role == "master") {%>
+                            <div class="col-sm-3">
+                                <h4>DNI</h4>
+                            </div>
+                            <div class="col-sm-3">
+                                <h4>NOMBRE</h4>
+                            </div>
+                            <div class="col-sm-3">
+                                <h4> APELLIDO</h4>
+                            </div>
+                            <div class="col-sm-3">
+                                <h4> CENTRO</h4>
+                            </div>
+                        <%}%>
                     </div>
                 </div>
+                <% for (var i =0; i < doctorList.length ;  i++ ) { %>
+
+                    <%if (user.hospital == doctorList[i].hospital || user.role == "master") {%>
+                        
+                            <div class="ml-auto mr-auto card col-sm-13 mb-1">
+                                <div class="row no-gutters">
+                                <%if (user.role == "master") {%>
+                                    <div class="col-sm-3"">
+                                        <h4><%= doctorList[i].dni %></h4>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <h4><%= doctorList[i].name %></h4>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <h4> <%= doctorList[i].lastName %></h4>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <h4> <%= doctorList[i].hospital %></h4>
+                                    </div>
+                                <%}%>
+                                <%if (user.role != "master") {%>
+                                    <div class="col-sm-4"">
+                                        <h4><%= doctorList[i].dni %></h4>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <h4><%= doctorList[i].name %></h4>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <h4> <%= doctorList[i].lastName %></h4>
+                                    </div>
+                                <%}%>
+
+
+                                </div>
+                            </div>
+                        
+                        
+                        
+                    <%}%>
+                    
+                  
+                    <% } %>
+                
             </div>
     </div>
     

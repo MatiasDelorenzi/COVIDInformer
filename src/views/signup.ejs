@@ -44,21 +44,24 @@
                         </div> 
                         
                     <%}%>
+                        
+                        <div class="form-group">
+                            <select name="hospital" class="form-select" aria-label="Default select example m-bottom-4">
+                                <option value="">Seleccione un centro de salud</option>
+    
+                                <%if (user.role == "master" || user.hospital == "Clínica Santa Clara de Zárate") {%>
+                                <option value="Clínica Santa Clara de Zárate">Clínica Santa Clara de Zárate</option>
+                                <%}%>
+    
+                                <%if (user.role == "master" || user.hospital == "Clínica Augusto T. Vandor - Campana") {%>
+                                <option value="Clínica Augusto T. Vandor - Campana">Clínica Augusto T. Vandor - Campana</option>
+                                <%}%>
+    
+                            </select>
+                        </div>
                     
-                    <div class="form-group">
-                        <select name="hospital" class="form-select" aria-label="Default select example m-bottom-4">
-                            <option value="">Seleccione un centro de salud</option>
-
-                            <%if (user.role == "master" || user.hospital == "Clínica Santa Clara de Zárate") {%>
-                            <option value="Clínica Santa Clara de Zárate">Clínica Santa Clara de Zárate</option>
-                            <%}%>
-
-                            <%if (user.role == "master" || user.hospital == "Clínica Augusto T. Vandor - Campana") {%>
-                            <option value="Clínica Augusto T. Vandor - Campana">Clínica Augusto T. Vandor - Campana</option>
-                            <%}%>
-                            
-                        </select>
-                    </div>
+                    
+                    
 
                     <button class="btn btn-primary btn-block"type="submit">Registrar</button>
                 </form>

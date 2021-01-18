@@ -1,11 +1,22 @@
 <%- layout('layouts/main.ejs')%>
 
-<div class="card">
-    <div class="card-body">
-
-        <form action="">
-            
-        </form>
-
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card mt-4 text-center">
+            <div class="card-header">
+                <h4>BUSCAR ESTUDIO</h4>
+            </div>
+            <div class="card-body">
+                <form action="/" method="POST">
+                                       
+                    <h6>Ingrese el DNI del paciente</h6>                   
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="patient_dni" placeholder="DNI del paciente" required>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-block" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>

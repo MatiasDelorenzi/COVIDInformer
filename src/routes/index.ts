@@ -2,14 +2,8 @@ const expr = require('express')
 const router= expr.Router()
 const passport = require('passport')
 const Doctor = require('../models/Doctor.ts')
-const {changeMyPassword, changeUserPassword, deleteUser, getDoctors} = require('../passport/auth.ts')
+const {changeMyPassword, changeUserPassword, deleteUser, addStudy, getStudies} = require('../passport/auth.ts')
 
-
-//HOME - SEARCH STUDY
-
-router.get('/', (req, res, next) =>{
-    res.render('index')
-});
 
 //SIGNUP
 
@@ -80,18 +74,26 @@ router.get('/doctorList', isAdmin, (req, res,next)=>{
     res.render('doctorList')
 })
 
-
-
-
 //ADD STUDY
-router.get('/addstudy', isAuthenticated, (req, res, next)=>{
+router.get('/addstudy', isDoctor, (req, res, next)=>{
     res.render('addstudy')
 })
 
-router.post('/addstudy', )
+router.post('/addstudy', async (req, res, next)=>{
+    await addStudy(req)
+    res.redirect('addstudy')
+})
 
+//HOME - SEARCH STUDY
 
+router.get('/', (req, res, next) =>{
+    res.render('index')
+})
 
+router.post('/', (req,res,next)=>{
+    const studies = getStudies(req)
+    res.render('studiesResult', {data: studies})
+})
 
 //MIDDLEWARE
 
@@ -109,6 +111,15 @@ function isAdmin(req, res,next){
         }
     }
     
+    res.redirect('/signin')
+}
+
+function isDoctor(req, res, next){
+    if (req.isAuthenticated()){
+        if (req.user.role === "doctor" || req.user.role === "master"){
+            return next()
+        }
+    }
     res.redirect('/signin')
 }
 

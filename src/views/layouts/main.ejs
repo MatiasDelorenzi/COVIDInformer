@@ -27,15 +27,11 @@
                 <%if (user) {%>
                     <a class="nav-link ml-3" href="/">Buscar resultado</a>
                       
-                    <%if (user.role == "master"){%>       
-                      <a class="nav-link ml-3" href="#">Agregar estudio</a>
+                    <%if (user.role == "master" || user.role == "doctor"){%>       
+                      <a class="nav-link ml-3" href="/addstudy">Cargar estudio</a>
                       <%}                  
                     %> 
-                    <%if (user.role == "doctor"){%>
-                      <a class="nav-link ml-3 " href="#">Agregar estudio</a>   
-                           
-                      <%}                  
-                    %>
+                    
                     <a class="nav-link ml-3" href="/changeMyPassword">Cambiar mi contraseña</a>
                     <%if (user.role == "admin" || user.role == "master"){%>
                       <div class="dropdown ml-3">

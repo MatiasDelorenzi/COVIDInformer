@@ -1,6 +1,8 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const Doctor = require('../models/Doctor.ts')
+const Study = require ('../models/Study.ts')
+
 
 passport.serializeUser((user, done)=>{
     done(null, user.id)
@@ -33,7 +35,6 @@ passport.use('local-signup', new LocalStrategy({
     newDoctor.name = req.body.name,
     newDoctor.lastName = req.body.lastName
     newDoctor.hospital = req.body.hospital
-    console.log(req.body.role)
     if (!req.body.role) {
         newDoctor.role = "doctor"
     } else if (req.body.role === "admin"){
@@ -108,7 +109,40 @@ exports.deleteUser = async (req, res)=>{
     }
     await Doctor.deleteOne({dni: dni})
     return req.flash('signupMessageSuccess','El usuario '+dni+' fue eliminado.')
-    
+}
 
-    
+exports.addStudy = async (req, res)=>{
+    let doctor_dni = 0
+    let study_hospital = ""
+    if (req.user.role == "master"){
+        doctor_dni = req.body.doctor_dni
+        study_hospital = req.body.hospital
+    } else{
+        doctor_dni = req.user.dni
+        study_hospital = req.user.hospital
+    }
+    const patient_dni = req.body.patient_dni
+    const patient_name = req.body.patient_name
+    const patient_lastName = req.body.patient_lastName
+    const result = req.body.result
+    const date = req.body.date
+    const studyFound = await Study.findOne({dni_paciente: patient_dni, fecha: date})
+    if (studyFound){
+        return req.flash('signupMessage', 'El estudio ya fue cargado.')
+    }
+    const newStudy = new Study()
+    newStudy.dni_paciente = patient_dni
+    newStudy.dni_medico = doctor_dni
+    newStudy.nombre_paciente = patient_name
+    newStudy.apellido_paciente = patient_lastName
+    newStudy.resultado = result
+    newStudy.centro = study_hospital
+    newStudy.fecha = date
+    newStudy.save()
+    return req.flash('signupMessageSuccess', 'El estudio se cargó correctamente')
+}
+
+exports.getStudies = async (req,res,next)=>{
+    console.log(req.body.patient_id)
+    return JSON.stringify({"nombre": "hola"})
 }
