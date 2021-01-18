@@ -40,7 +40,7 @@
                     <%if (user.role == "admin" || user.role == "master"){%>
                       <div class="dropdown ml-3">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Administrar usuarios
+                          Usuarios
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                           <%if (user.role == "admin"){%>
@@ -48,13 +48,14 @@
                             <%}                  
                           %>
                           <%if (user.role == "master"){%>
-                            <a class="nav-link ml-3" href="/signup">Nuevo usuario</a>        
+                            <a class="nav-link ml-3" href="/signup">Nuevo</a>        
                             
                             <%}                  
                           %> 
+                          <a class="dropdown-item" href="/deleteUser">Eliminar usuario</a>
                           <a class="dropdown-item" href="/changeUserPassword">Cambiar contraseña</a>
-                          <a class="dropdown-item" href="/deleteUser">Eliminar un usuario</a>
-                          <a class="dropdown-item" href="#">Listado de médicos</a>
+                          
+                          <a class="dropdown-item" href="/doctorList">Listado de médicos</a>
                           
                          
                         </div>

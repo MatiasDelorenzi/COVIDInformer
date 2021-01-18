@@ -1,0 +1,26 @@
+<%- layout('layouts/main.ejs')%>
+
+<div class="text-center">
+    <h1>Listado de médicos</h1>
+
+    <div class="container col ml-auto">
+            <div class="item-center">
+                <div class="card col-sm-9">
+                    <div class="row no-gutters">
+                        <div class="col-sm-4"">
+                            <h2><%= doctorList[0].dni %></h1>
+                        </div>
+                        <div class="col-sm-4">
+                            <h2><%= doctorList[0].name %></h1>
+                        </div>
+                        <div class="col-sm-4">
+                            <h2> <%= doctorList[0].lastName %></h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    
+    
+</div>
+

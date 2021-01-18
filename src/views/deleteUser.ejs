@@ -4,26 +4,17 @@
     <div class="col-md-4 offset-md-4">
         <div class="card mt-4 text-center">
             <div class="card-header">
-                <h4>ELIMINAR UN USUARIO</h4>
-                <h6></h6>
+                <h4>ELIMINAR USUARIO</h4>
             </div>
             <div class="card-body">
-                <form action="/changeMyPassword" method="POST">
-                    <h6>Usuario:</h6>
+                <form action="/deleteUser" method="POST">
                     <div class="form-group">
-                        <input disabled="disabled" value="<%= user.dni %>" class="form-control" type="number" name="dni" placeholder="DNI" required>
-                    </div>
+                        <input class="form-control" type="number" name="dni" placeholder="DNI">
+                    </div>                    
                     <div class="form-group">
-                        <input class="form-control" type="password" name="actualPassword" placeholder="Contraseña actual" required>
+                        <input type="number" class="form-control" name="dni2" placeholder="Repita el DNI">
                     </div>
-                    <div class="form-group">
-                        <input class="form-control"type="password" name="newPassword" placeholder="Nueva contraseña" required> 
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control"type="password" name="newPasswordCheck" placeholder="Repita la nueva contraseña" required> 
-                    </div>
-                    
-                    <button class="btn btn-primary btn-block" type="submit">Cambiar</button>
+                    <button class="btn btn-primary btn-block" type="submit">Eliminar</button>
                 </form>
             </div>
         </div>

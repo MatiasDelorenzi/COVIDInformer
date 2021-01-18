@@ -2,7 +2,7 @@ const expr = require('express')
 const router= expr.Router()
 const passport = require('passport')
 const Doctor = require('../models/Doctor.ts')
-const {changeMyPassword, changeUserPassword} = require('../passport/auth.ts')
+const {changeMyPassword, changeUserPassword, deleteUser, getDoctors} = require('../passport/auth.ts')
 
 
 //HOME - SEARCH STUDY
@@ -65,10 +65,22 @@ router.post('/changeUserPassword', async (req, res, next)=>{
     res.redirect('/changeUserPassword')
 })
 
-//DELTE USER
+//SEARCH USER
 router.get('/deleteUser', isAdmin, (req, res, next)=>{
     res.render('deleteUser')
 })
+
+router.post('/deleteUser', async (req, res, next)=>{
+    await deleteUser(req)
+    res.redirect('deleteUser')
+})
+
+//LIST DOCTORS
+router.get('/doctorList', isAdmin, (req, res,next)=>{
+    res.render('doctorList')
+})
+
+
 
 
 //ADD STUDY

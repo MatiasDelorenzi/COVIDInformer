@@ -6,6 +6,7 @@ const morgan = require('morgan')
 const passport = require('passport')
 const session = require('express-session')
 const flash = require('connect-flash')
+const Doctor = require('./models/Doctor.ts')
 
 //INITIALIZATIONS
 const app = express()
@@ -30,11 +31,12 @@ app.use(flash())
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use((req, res, next)=>{
+app.use(async (req, res, next)=>{
     app.locals.signupMessage = req.flash('signupMessage')
     app.locals.signinMessage = req.flash('signinMessage')
     app.locals.signupMessageSuccess = req.flash('signupMessageSuccess')
     app.locals.user = req.user
+    app.locals.doctorList = await Doctor.find()
     next();
 })
 

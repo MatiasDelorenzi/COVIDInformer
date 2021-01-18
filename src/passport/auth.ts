@@ -20,30 +20,30 @@ passport.use('local-signup', new LocalStrategy({
     const registeredDoctor = await Doctor.findOne({dni: dni})
     if (registeredDoctor){
         return done(null, false, req.flash('signupMessage', 'El DNI ' + req.body.dni + ' ya se encuentra registrado.'))
-    } else {
-        if (password != req.body.passwordCheck){
-            return done(null, false, req.flash('signupMessage', 'Las contraseñas no coinciden.'))
-        } else {
-            const newDoctor = new Doctor()
-            newDoctor.dni = dni,
-            newDoctor.password = newDoctor.encryptPassword(password),
-            newDoctor.name = req.body.name,
-            newDoctor.lastName = req.body.lastName
-            newDoctor.hospital = req.body.hospital
-            console.log(req.body.role)
-            if (!req.body.role) {
-                newDoctor.role = "doctor"
-            } else if (req.body.role === "admin"){
-                newDoctor.role = "admin"
-            } else if (req.body.role === "doctor"){
-                newDoctor.role = "doctor"
-            }       
-            newDoctor.save()
-            done(null, null, req.flash('signupMessageSuccess', 'El médico ' + req.body.lastName + ' ' + req.body.name + ' fue registrado correctamente.'))
-        }
-         
     }
- 
+    if (req.body.hospital === ""){
+        return done(null, false, req.flash('signupMessage', 'Por favor seleccione un centro de salud.'))
+    }
+    if (password != req.body.passwordCheck){
+        return done(null, false, req.flash('signupMessage', 'Las contraseñas no coinciden.'))
+    }
+    const newDoctor = new Doctor()
+    newDoctor.dni = dni,
+    newDoctor.password = newDoctor.encryptPassword(password),
+    newDoctor.name = req.body.name,
+    newDoctor.lastName = req.body.lastName
+    newDoctor.hospital = req.body.hospital
+    console.log(req.body.role)
+    if (!req.body.role) {
+        newDoctor.role = "doctor"
+    } else if (req.body.role === "admin"){
+        newDoctor.role = "admin"
+    } else if (req.body.role === "doctor"){
+        newDoctor.role = "doctor"
+    }       
+    newDoctor.save()
+    done(null, null, req.flash('signupMessageSuccess', 'El médico ' + req.body.lastName + ' ' + req.body.name + ' fue registrado correctamente.'))        
+
 }))
 
 
@@ -94,4 +94,21 @@ exports.changeUserPassword =  async (req, res, done) =>{
     const newDoctor = new Doctor()
     await Doctor.findOneAndUpdate({dni: req.body.dni}, {$set: {"password": newDoctor.encryptPassword(newPass)}})
     return req.flash('signupMessageSuccess', 'Contraseña cambiada.')
+}
+
+exports.deleteUser = async (req, res)=>{
+    const dni = req.body.dni
+    const dni2 = req.body.dni2
+    const userFound = await Doctor.findOne({dni: dni})
+    if (dni != dni2){
+        return req.flash('signupMessage','Los DNI no coinciden.')
+    } 
+    if (!userFound){
+        return req.flash('signupMessage', 'El usuario con el DNI '+dni +' no existe.')
+    }
+    await Doctor.deleteOne({dni: dni})
+    return req.flash('signupMessageSuccess','El usuario '+dni+' fue eliminado.')
+    
+
+    
 }
