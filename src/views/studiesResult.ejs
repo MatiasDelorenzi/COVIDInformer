@@ -1,6 +1,44 @@
 <%- layout('layouts/main.ejs')%>
 
 
-<h1>
-    <%= data %>
-</h1>
+<div class="text-center">
+    <h1>RESULTADOS DE LA BÚSQUEDA</h1>
+    <div class="container col-md-9 ml-auto">
+        <div class="ml-auto">
+            <% for (var i =0; i < data.length ;  i++ ) { %>
+                <div class="card text-center mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title font-weight-bold mb-0"><%= data[i].apellido_paciente + ', ' + data[i].nombre_paciente %></h2>
+                        <h4 class="card-title mt-0"><%= data[i].dni_paciente %></h4>
+                        <h5 class="card-title">Resultado</h5>
+                        <%if (data[i].resultado == "positivo") {%>
+                            <h4 class="card-title font-weight-bold text-primary">POSITIVO PARA COVID-19</h4>
+                        <%}%>
+                        <%if (data[i].resultado == "negativo") {%>
+                            <h4 class="card-title font-weight-bold text-primary">NEGATIVO PARA COVID-19</h4>
+                        <%}%>
+                        <h6 class="card-title"><%= 'Realizado en: ' + data[i].centro %></h5>
+                    </div>
+                    <div class="card-footer text-muted">
+                      <%= 'Médico: ' + data[i].apellido_medico + ', ' + data[i].nombre_medico %>
+                      <br>
+                      <%= 'Fecha: ' + (data[i].fecha.getDate()+1) +'/'+ (data[i].fecha.getMonth()+1) + '/' +data[i].fecha.getFullYear()  %>
+                    </div>
+
+                  </div>
+            <% } %>
+
+            <a href="/" class="btn btn-primary mb-5">Buscar otro resultado</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<!--<h1>    <%= data%>
+</h1>-->

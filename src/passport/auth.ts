@@ -127,12 +127,18 @@ exports.addStudy = async (req, res)=>{
     const result = req.body.result
     const date = req.body.date
     const studyFound = await Study.findOne({dni_paciente: patient_dni, fecha: date})
+    const doctorFound = await Doctor.findOne({dni: doctor_dni})
+    if (!doctorFound){
+        return req.flash('signupMessage', 'El médico no está registrado en el sistema.')
+    }
     if (studyFound){
         return req.flash('signupMessage', 'El estudio ya fue cargado.')
     }
     const newStudy = new Study()
+    console.log(doctorFound)
     newStudy.dni_paciente = patient_dni
-    newStudy.dni_medico = doctor_dni
+    newStudy.nombre_medico = doctorFound.name
+    newStudy.apellido_medico = doctorFound.lastName
     newStudy.nombre_paciente = patient_name
     newStudy.apellido_paciente = patient_lastName
     newStudy.resultado = result
@@ -143,6 +149,7 @@ exports.addStudy = async (req, res)=>{
 }
 
 exports.getStudies = async (req,res,next)=>{
-    console.log(req.body.patient_id)
-    return JSON.stringify({"nombre": "hola"})
+    console.log(req.body.patient_dni)
+    const studiesFound = await Study.find({dni_paciente: req.body.patient_dni})
+    return studiesFound
 }

@@ -4,7 +4,8 @@ const Sch = mong.Schema
 
 const studySchema = new Sch({
     dni_paciente: Number,
-    dni_medico: Number,
+    nombre_medico: String,
+    apellido_medico:String,
     nombre_paciente: String,
     apellido_paciente: String,
     resultado: String,

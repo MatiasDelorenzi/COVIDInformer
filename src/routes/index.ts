@@ -24,7 +24,7 @@ router.get('/signin', (req, res, next)=>{
 })
 
 router.post('/signin', passport.authenticate('local-signin',{
-    successRedirect: '/profile',
+    successRedirect: '/',
     failureRedirect: '/signin',
     passReqToCallback: true
 }))
@@ -34,9 +34,7 @@ router.get('/logout', (req, res, next)=>{
     res.redirect('/')
 })
 
-router.get('/profile', isAuthenticated, (req, res, next)=>{
-    res.render('profile')
-})
+
 
 //CHANGE PASSWORD
 
@@ -90,8 +88,9 @@ router.get('/', (req, res, next) =>{
     res.render('index')
 })
 
-router.post('/', (req,res,next)=>{
-    const studies = getStudies(req)
+router.post('/', async (req,res,next)=>{
+    const studies = await getStudies(req)
+    console.log(studies)
     res.render('studiesResult', {data: studies})
 })
 
