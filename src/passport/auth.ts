@@ -149,7 +149,6 @@ exports.addStudy = async (req, res)=>{
 }
 
 exports.getStudies = async (req,res,next)=>{
-    console.log(req.body.patient_dni)
     const studiesFound = await Study.find({dni_paciente: req.body.patient_dni})
     return studiesFound
 }

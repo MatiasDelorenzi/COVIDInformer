@@ -90,7 +90,6 @@ router.get('/', (req, res, next) =>{
 
 router.post('/', async (req,res,next)=>{
     const studies = await getStudies(req)
-    console.log(studies)
     res.render('studiesResult', {data: studies})
 })
 
