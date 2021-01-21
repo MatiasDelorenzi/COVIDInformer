@@ -75,7 +75,7 @@
    <div class="container">
        
         <% if (signupMessage.length > 0) {%>
-          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong><%= signupMessage %></strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -86,7 +86,7 @@
         }%>
 
         <% if (signupMessageSuccess.length > 0) {%>
-          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong><%= signupMessageSuccess %></strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -99,7 +99,7 @@
       }%>
 
         <% if (signinMessage.length > 0) {%>
-          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong><%= signinMessage%></strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>

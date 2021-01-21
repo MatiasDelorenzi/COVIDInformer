@@ -103,10 +103,20 @@ exports.deleteUser = async (req, res)=>{
     const userFound = await Doctor.findOne({dni: dni})
     if (dni != dni2){
         return req.flash('signupMessage','Los DNI no coinciden.')
-    } 
+    }
     if (!userFound){
         return req.flash('signupMessage', 'El usuario con el DNI '+dni +' no existe.')
     }
+    if (userFound.dni = dni){
+        return req.flash('signupMessage', 'Usted no puede eliminar su propio usuario, por favor, contacte con el administrador del sitio.')
+    }
+    if (req.user.hospital != userFound.hospital && req.user.role != "master"){
+        return req.flash('signupMessage', 'Usted no puede elminar usuarios que no trabajen en su centro.')
+    }
+    if (userFound.role === "master" || req.user.role === userFound.role){
+        return req.flash('signupMessage', 'Usted no tiene los permisos para eliminar un usuario administrador.')
+    }
+
     await Doctor.deleteOne({dni: dni})
     return req.flash('signupMessageSuccess','El usuario '+dni+' fue eliminado.')
 }
